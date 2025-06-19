@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% block content %}
+<section id="prediction" class="section">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="section-title mb-4">
+          <p class="h4 fw-bold">Form Prediksi Penyakit Jantung</p>
+          <h4 class="text-muted">Form ini berisi pertanyaan seputar kesehatan pribadi dan gaya hidup Anda untuk memprediksi risiko penyakit jantung.</h4>
+        </div>
+        <form method="post" action="{{ url_for('predict') }}">
+
+        <div class="form-group-custom">
+            <label class="form-label">Berat Badan (kg)</label>
+            <input type="number" step="0.1" id="berat" class="form-control" placeholder="Contoh: 65" required>
+        </div>
+
+        <div class="form-group-custom">
+            <label class="form-label">Tinggi Badan (cm)</label>
+            <input type="number" step="0.1" id="tinggi" class="form-control" placeholder="Contoh: 170" required>
+        </div>
+
+        <!-- BMI akan dihitung otomatis -->
+        <input type="hidden" name="BMI" id="bmi">
+
+
+        <!-- Physical Health -->
+        <div class="form-group-custom">
+            <label class="form-label">Hari Fisik Tidak Sehat (30 hari terakhir)</label>
+            <small class="form-hint">Ini mengukur seberapa sering Anda mengalami gangguan fisik seperti nyeri, kelelahan ekstrem, atau gejala penyakit dalam 30 hari terakhir. Frekuensi tinggi bisa menjadi tanda gangguan kesehatan yang berkaitan dengan sistem kardiovaskular.</small>
+            <input type="number" name="PhysicalHealth" class="form-control" min="0" max="30" placeholder="Contoh: 3" required>
+        </div>
+
+        <!-- Mental Health -->
+        <div class="form-group-custom">
+            <label class="form-label">Hari Mental Tidak Sehat (30 hari terakhir)</label>
+            <small class="form-hint">Jumlah hari Anda merasa stres, cemas, depresi, atau tekanan psikologis. Kesehatan mental yang buruk secara konsisten dapat memengaruhi tekanan darah dan meningkatkan risiko penyakit jantung.</small>
+            <input type="number" name="MentalHealth" class="form-control" min="0" max="30" placeholder="Contoh: 5" required>
+        </div>
+
+        <!-- Sleep Time -->
+        <div class="form-group-custom">
+            <label class="form-label">Berapa Jam Anda Tidur dalam sehari?</label>
+            <small class="form-hint">Tidur yang cukup (idealnya 7–9 jam per hari) penting untuk regenerasi tubuh dan menjaga kesehatan jantung. Kurang tidur atau tidur berlebihan dapat mengganggu metabolisme dan tekanan darah.</small>
+            <input type="number" name="SleepTime" class="form-control" min="1" max="24" placeholder="Contoh: 7" required>
+        </div>
+
+        <!-- Binary Fields -->
+        {% for field, label, hint in [
+            ('Smoking', 'Apakah Anda seorang perokok?', 'Merokok adalah salah satu faktor risiko terbesar untuk penyakit jantung. Zat beracun dalam rokok merusak pembuluh darah dan mempercepat penumpukan plak yang menyebabkan serangan jantung atau stroke.'),
+            ('AlcoholDrinking', 'Apakah Anda mengonsumsi Alkohol?', 'Konsumsi alkohol dalam jumlah sedang mungkin tidak berbahaya, tetapi konsumsi berlebihan secara rutin dapat meningkatkan tekanan darah dan kadar lemak dalam darah, yang berdampak negatif pada kesehatan jantung.'),
+            ('Stroke', 'Apakah Anda pernah mengidap Stroke?', 'Riwayat stroke menunjukkan adanya gangguan aliran darah ke otak. Hal ini juga menandakan kemungkinan adanya gangguan pada sistem pembuluh darah yang memengaruhi jantung.'),
+            ('DiffWalking', 'Apakah Anda merasa kesulitan berjalan?', 'Kesulitan berjalan bisa mengindikasikan gangguan pada aliran darah, otot, atau jantung. Gejala seperti nyeri saat berjalan bisa menjadi tanda penyakit arteri perifer yang berkaitan dengan risiko jantung.'),
+            ('PhysicalActivity', 'Aktivitas Fisik Rutin?', 'Aktivitas fisik teratur membantu mengontrol berat badan, menurunkan tekanan darah, memperkuat jantung, dan mengurangi stres—semuanya penting untuk mencegah penyakit jantung.'),
+            ('Asthma', 'Apakah Anda memiliki Asma?', 'Meskipun asma adalah penyakit saluran napas, peradangan kronis dan penggunaan obat jangka panjang dapat memberikan tekanan tambahan pada jantung, terutama jika sering kambuh.'),
+            ('KidneyDisease', 'Apakah Anda mengidap Penyakit Ginjal?', 'Fungsi ginjal yang buruk berkaitan erat dengan kesehatan jantung. Penyakit ginjal kronis dapat menyebabkan retensi cairan dan gangguan elektrolit yang membebani jantung.'),
+            ('SkinCancer', 'Apakah Anda pernah mengidap Kanker Kulit?', 'Riwayat kanker kulit mungkin tidak langsung menyebabkan penyakit jantung, namun beberapa perawatan kanker bisa memengaruhi fungsi jantung. Selain itu, ini bisa menjadi indikator gaya hidup atau kondisi medis lainnya.')
+        ] %}
+        <div class="form-group-custom">
+            <label class="form-label">{{ label }}</label>
+            <small class="form-hint">{{ hint }}</small>
+            <select name="{{ field }}" class="form-control" required>
+            <option value="" disabled selected>Pilih jawaban</option>
+            <option value="0">Tidak</option>
+            <option value="1">Ya</option>
+            </select>
+        </div>
+        {% endfor %}
+
+        <!-- Sex -->
+        <div class="form-group-custom">
+            <label class="form-label">Jenis Kelamin Anda?</label>
+            <small class="form-hint">Pria cenderung memiliki risiko penyakit jantung lebih tinggi di usia muda, sedangkan wanita cenderung meningkat setelah menopause. Faktor hormonal dan genetik turut memengaruhi.</small>
+            <select name="Sex" class="form-control" required>
+            <option value="" disabled selected>Pilih jenis kelamin</option>
+            <option value="0">Perempuan</option>
+            <option value="1">Laki-laki</option>
+            </select>
+        </div>
+
+        <!-- Age Category -->
+        <div class="form-group-custom">
+            <label class="form-label">Kategori Usia Anda?</label>
+            <small class="form-hint">Risiko penyakit jantung meningkat seiring bertambahnya usia. Proses penuaan dapat menyebabkan penumpukan plak di arteri dan peningkatan tekanan darah.</small>
+            <select name="AgeCategory" class="form-control" required>
+            <option value="" disabled selected>Pilih kategori usia</option>
+            {% for i in range(13) %}
+            <option value="{{ i }}">Usia {{ ['18–24','25–29','30–34','35–39','40–44','45–49','50–54','55–59','60–64','65–69','70–74','75–79','80+'][i] }} Tahun</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <!-- Race -->
+        <div class="form-group-custom">
+            <label class="form-label">Ras Anda?</label>
+            <small class="form-hint">Beberapa kelompok etnis memiliki risiko penyakit jantung yang berbeda karena faktor genetik, gaya hidup, dan akses terhadap perawatan kesehatan.</small>
+            <select name="Race" class="form-control" required>
+            <option value="" disabled selected>Pilih ras</option>
+            <option value="0">American Indian/Alaskan Native</option>
+            <option value="1">Asian</option>
+            <option value="2">Black/African American</option>
+            <option value="3">Hispanic/Latino</option>
+            <option value="5">White/Eropa/Timur Tengah/Afrika Utara</option>
+            <option value="4">Lainnya</option>
+            </select>
+        </div>
+
+        <!-- Diabetic -->
+        <div class="form-group-custom">
+            <label class="form-label">Apakah Anda mengidap Diabetes?</label>
+            <small class="form-hint">Diabetes meningkatkan risiko penyakit jantung secara signifikan. Kadar gula darah yang tinggi dapat merusak pembuluh darah dan mempercepat proses aterosklerosis.</small>
+            <select name="Diabetic" class="form-control" required>
+            <option value="" disabled selected>Pilih status diabetes</option>
+            <option value="0">Tidak</option>
+            <option value="1">Tidak, borderline/pradiabetes</option>
+            <option value="2">Ya</option>
+            <option value="3">Ya (selama kehamilan)</option>
+            </select>
+        </div>
+
+        <!-- General Health -->
+        <div class="form-group-custom">
+            <label class="form-label">Menurut Anda, bagaimana kondisi kesehatan Anda saat ini?</label>
+            <small class="form-hint">Penilaian subjektif Anda terhadap kesehatan secara umum dapat memberikan gambaran awal tentang kesejahteraan Anda. Orang yang merasa tidak sehat secara umum cenderung memiliki lebih banyak faktor risiko.</small>
+            <select name="GenHealth" class="form-control" required>
+            <option value="" disabled selected>Pilih penilaian</option>
+            <option value="4">Sangat Baik</option>
+            <option value="3">Baik</option>
+            <option value="2">Cukup Baik</option>
+            <option value="1">Kurang Baik</option>
+            <option value="0">Tidak Baik</option>
+            </select>
+        </div>
+        <!-- Submit -->
+        <div class="form-group text-center mt-4">
+            <input type="submit" class="btn btn-primary px-4" value="Mulai Prediksi">
+        </div>
+
+        </form>
+        <script>
+            const form = document.querySelector('form');
+            const berat = document.getElementById('berat');
+            const tinggi = document.getElementById('tinggi');
+            const bmiField = document.getElementById('bmi');
+
+            form.addEventListener('submit', function (e) {
+                const bb = parseFloat(berat.value);
+                const tb = parseFloat(tinggi.value) / 100; // konversi cm ke meter
+
+                if (!isNaN(bb) && !isNaN(tb) && tb > 0) {
+                const bmi = bb / (tb * tb);
+                bmiField.value = bmi.toFixed(2); // hasil dibulatkan 2 angka di belakang koma
+                }
+            });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

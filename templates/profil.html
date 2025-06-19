@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="container mt-5">
+  <h4 class="fw-semibold mb-2 mb-4 text-center"><i class=""></i>Profil Pengguna</h4>
+
+  <!-- Kartu Data Akun -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <table class="table table-bordered mt-3">
+        <thead class="table-light">
+        <tr>
+          <td>Username </td>
+          <td>{{ akun.username }}</td>
+        <tr>
+        </thead>
+        <tbody>
+          <td>Email </td>
+          <td> {{ akun.email }}</td>
+        </tbody>
+      </table>
+      <a href="{{ url_for('edit_profil') }}" class="btn btn-warning mt-3">Edit Profil</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Logout</a>
+    </div>
+  </div>
+
+  <!-- Riwayat Prediksi -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="fw-semibold mb-2"><i class=""></i>Riwayat Prediksi</h4>
+      {% if riwayat %}
+        <div class="table-responsive">
+          <table class="table table-bordered mt-3">
+            <thead class="table-light">
+              <tr>
+                <th>Tanggal</th>
+                <th>BMI</th>
+                <th>Prediksi</th>
+                <!-- <th>Probabilitas</th> -->
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in riwayat %}
+              <tr>
+                <td>{{ r.timestamp }}</td>
+                <td>{{ r.BMI }}</td>
+                <td>{{ r.prediction_result }}</td>
+                <!-- <td>{{ '{:.2f}'.format(r.probability|float) }}</td> -->
+                <td>
+                  <a href="{{ url_for('download_pdf', id=r.id) }}" class="btn btn-sm btn-primary">Download</a>
+                  <a href="{{ url_for('detail_prediction', id=r.id) }}" class="btn btn-sm btn-warning">Detail</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-muted mt-3">Belum ada riwayat prediksi.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="section py-5 mt-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <!-- <h2 class="fw-bold display-6">Tentang <span class="text-primary">HeartGuard</span></h2> -->
+      <!-- <p class="text-muted fst-italic">Sistem Prediksi Risiko Penyakit Jantung Berbasis Machine Learning</p> -->
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="px-2 px-md-4">
+          <div class="mb-5">
+            <h4 class="fw-semibold mb-2"><i class=""></i>Apa itu HeartGuard ?</h4>
+            <p class="text-secondary">
+              HeartGuard adalah sistem berbasis web yang dirancang untuk membantu pengguna memprediksi risiko penyakit jantung
+              berdasarkan data kesehatan yang mereka inputkan. Sistem ini menggunakan algoritma <strong>Machine Learning</strong> (Random Forest) yang telah dilatih dengan dataset medis.
+            </p>
+          </div>
+
+          <div class="mb-5">
+            <h4 class="fw-semibold mb-2"></i>Bagaimana cara kerjanya?</h4>
+            <ul class="list-group list-group-flush border-start border-3 ps-3">
+              <li class="mb-2">Pengguna mengisi beberapa informasi terkait kesehatan dan gaya hidup.</li>
+              <li class="mb-2">Data diproses oleh model Machine Learning Random Forest untuk dianalisis.</li>
+              <li class="mb-2">Sistem memberikan hasil prediksi: berisiko atau tidak.</li>
+              <li class="mb-2">Disertai probabilitas prediksi sebagai informasi tambahan.</li>
+            </ul>
+          </div>
+
+          <div class="mb-5">
+            <h4 class="fw-semibold mb-2"><i class=""></i>Tujuan Aplikasi</h4>
+            <p class="text-secondary">
+              Aplikasi ini bertujuan untuk memberikan prediksi risiko penyakit jantung dan diharapkan hasil prediksi dapat
+              mendorong langkah preventif untuk pencegahan dan penanganan penyakit jantung.
+            </p>
+          </div>
+
+          <div class="mb-5">
+            <h4 class="fw-semibold mb-2"><i class=""></i>Disclaimer</h4>
+            <p class="text-danger">
+              Prediksi yang dihasilkan bersifat informatif/prediktif dan bukan pengganti diagnosis medis profesional. Konsultasikan hasil lebih lanjut dengan dokter.
+            </p>
+          </div>
+
+          <div class="text-center mt-4">
+            <a href="{{ url_for('form') }}" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-heart-pulse-fill me-2"></i>Mulai Prediksi
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

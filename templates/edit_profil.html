@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="container mt-5">
+  <h4 class="fw-semibold mb-4 text-center">Edit Profil</h4>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      {% if msg %}
+        <div class="alert alert-success" role="alert">{{ msg }}</div>
+      {% endif %}
+      <form method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label"><strong>Email</strong></label>
+          <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label"><strong>Username</strong></label>
+          <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label"><strong>Password Baru</strong> <small class="text-muted">(biarkan kosong jika tidak ingin diubah)</small></label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        <a href="{{ url_for('profil') }}" class="btn btn-secondary ms-2">Batal</a>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

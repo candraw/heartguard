@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+  <h4 class="fw-semibold mb-2 mb-4 text-center"><i class=""></i>Grafik Riwayat Prediksi</h4>
+  <div class="row justify-content-center">
+    <p> Halaman ini menyajikan visualisasi hasil prediksi risiko penyakit jantung berdasarkan dua kategori utama: <strong>jenis kelamin</strong> dan <strong>kebiasaan merokok</strong>. Tujuan dari grafik ini adalah memberikan gambaran umum mengenai distribusi risiko pada kelompok-kelompok tertentu. 
+      Berdasarkan Riwayat Prediksi dari pengguna.</p> <hr>
+    <!-- Grafik Berdasarkan Jenis Kelamin -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header text-center bg-light">
+          <strong>Grafik Prediksi Berdasarkan Jenis Kelamin</strong>
+        </div>
+        <div class="card-body">
+          <div style="height: 280px;">
+            <canvas id="genderChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grafik Berdasarkan Smoking -->
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header text-center bg-light">
+          <strong>Grafik Prediksi Berdasarkan Kebiasaan Merokok</strong>
+        </div>
+        <div class="card-body">
+          <div style="height: 280px;">
+            <canvas id="smokingChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctxGender = document.getElementById('genderChart').getContext('2d');
+  new Chart(ctxGender, {
+    type: 'bar',
+    data: {
+      labels: ['Berisiko', 'Tidak Berisiko'],
+      datasets: [
+        {
+          label: 'Laki-laki',
+          data: [{{ data['Male']['Berisiko'] }}, {{ data['Male']['Tidak Berisiko'] }}],
+          backgroundColor: 'rgba(54, 162, 235, 0.7)'
+        },
+        {
+          label: 'Perempuan',
+          data: [{{ data['Female']['Berisiko'] }}, {{ data['Female']['Tidak Berisiko'] }}],
+          backgroundColor: 'rgba(255, 99, 132, 0.7)'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1 }
+        }
+      }
+    }
+  });
+
+  const ctxSmoking = document.getElementById('smokingChart').getContext('2d');
+  new Chart(ctxSmoking, {
+    type: 'bar',
+    data: {
+      labels: ['Berisiko', 'Tidak Berisiko'],
+      datasets: [
+        {
+          label: 'Perokok',
+          data: [{{ data['Smoking']['Berisiko'] }}, {{ data['Smoking']['Tidak Berisiko'] }}],
+          backgroundColor: 'rgba(255, 159, 64, 0.7)'
+        },
+        {
+          label: 'Tidak Merokok',
+          data: [{{ data['NonSmoking']['Berisiko'] }}, {{ data['NonSmoking']['Tidak Berisiko'] }}],
+          backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1 }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

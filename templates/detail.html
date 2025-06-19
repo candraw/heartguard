@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+  <h4 class="mb-4">Detail Prediksi Risiko Penyakit Jantung</h4>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr><th>Username</th><td>{{ data.username }}</td></tr>
+      <tr><th>BMI</th><td>{{ data.BMI }}</td></tr>
+      <tr><th>Merokok</th><td>{{ label_value('Smoking', data.Smoking) }}</td></tr>
+      <tr><th>Konsumsi Alkohol</th><td>{{ label_value('AlcoholDrinking', data.AlcoholDrinking) }}</td></tr>
+      <tr><th>Riwayat Stroke</th><td>{{ label_value('Stroke', data.Stroke) }}</td></tr>
+      <tr><th>Hari Fisik Tidak Sehat</th><td>{{ data.PhysicalHealth }}</td></tr>
+      <tr><th>Hari Mental Tidak Sehat</th><td>{{ data.MentalHealth }}</td></tr>
+      <tr><th>Kesulitan Berjalan</th><td>{{ label_value('DiffWalking', data.DiffWalking) }}</td></tr>
+      <tr><th>Jenis Kelamin</th><td>{{ label_value('Sex', data.Sex) }}</td></tr>
+      <tr><th>Kategori Usia</th><td>{{ label_value('AgeCategory', data.AgeCategory) }}</td></tr>
+      <tr><th>Ras</th><td>{{ label_value('Race', data.Race) }}</td></tr>
+      <tr><th>Status Diabetes</th><td>{{ label_value('Diabetic', data.Diabetic) }}</td></tr>
+      <tr><th>Aktivitas Fisik</th><td>{{ label_value('PhysicalActivity', data.PhysicalActivity) }}</td></tr>
+      <tr><th>Kesehatan Umum</th><td>{{ label_value('GenHealth', data.GenHealth) }}</td></tr>
+      <tr><th>Jam Tidur</th><td>{{ data.SleepTime }}</td></tr>
+      <tr><th>Asma</th><td>{{ label_value('Asthma', data.Asthma) }}</td></tr>
+      <tr><th>Penyakit Ginjal</th><td>{{ label_value('KidneyDisease', data.KidneyDisease) }}</td></tr>
+      <tr><th>Kanker Kulit</th><td>{{ label_value('SkinCancer', data.SkinCancer) }}</td></tr>
+      <tr><th>Hasil Prediksi</th><td><strong>{{ data.prediction_result }}</strong></td></tr>
+    </tbody>
+  </table>
+
+  {% if saran %}
+  <div class="mt-4">
+    <h4>Saran Kesehatan:</h4>
+    <ul>
+      {% for s in saran %}
+      <li>{{ s }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="mt-4">
+    <a href="{{ url_for('download_pdf', id=data.id) }}" class="btn btn-primary">Download</a>
+    <a href="{{ url_for('profil') }}" class="btn btn-secondary">Kembali</a>
+  </div>
+</div>
+{% endblock %}

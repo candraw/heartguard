@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<section id="hero" class="d-flex align-items-center text-white" style="min-height: 80vh; background: linear-gradient(135deg, #e0f7fa, #abd7eb);">
+  <div class="container">
+    <div class="row gy-4 align-items-center">
+      <!-- Konten Teks -->
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 class="display-5 fw-bold mb-3 text-black">Semua orang berpotensi terkena<span class="text-danger"> Penyakit Jantung</span></h1>
+        <h2 class="fs-4 mb-4 text-black">Cegah sekarang bersama <strong class="text-black">HeartGuard</strong>.</h2>
+        <a href="{{ url_for('form') }}" class="btn btn-primary btn-lg px-4 rounded-pill shadow">
+          <i class="bi bi-heart-pulse-fill me-2"></i>Prediksi Sekarang!
+        </a>
+      </div>
+
+      <!-- Ilustrasi / Gambar -->
+      <div class="col-lg-6 text-center">
+        <img src="{{ url_for('static', filename='img/heart.png') }}" alt="Heart Health Illustration" class="img-fluid" style="max-height: 400px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Edukasi Penyakit Jantung -->
+<section id="edukasi" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+        <h3 class="fw-bold mb-2 mb-4 text-center"><i class=""></i>Apa itu Penyakit Jantung</h3>
+      <p class="text-secondary"></p>
+      <p class="lead text-secondary">
+        Penyakit jantung terjadi ketika aliran darah dan oksigen ke jantung terhambat, ini terjadi karena adanya sumbatan di pembuluh darah. 
+        Kebiasaan seperti merokok, kurangnya aktivitas fisik, stres, dan gaya hidup tidak sehat lainnya merupakan penyebab utama terjadinya Penyakit Jantung.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Langkah 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-clipboard-check text-primary" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="card-title fw-semibold">Masukkan Data Kesehatan</h4>
+            <p class="card-text text-muted">
+              Isi formulir yang berkaitan dengan kesehatan dan gaya hidup Anda.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Langkah 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-cpu text-success" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="card-title fw-semibold">Klik Tombol Prediksi</h4>
+            <p class="card-text text-muted">
+              Setelah data diisi, tekan tombol <strong>"Prediksi Sekarang!"</strong> untuk menjalankan analisis dengan model Machine Learning kami.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Langkah 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm rounded-4">
+          <div class="card-body text-center">
+            <div class="mb-3">
+              <i class="bi bi-heart-pulse text-danger" style="font-size: 2rem;"></i>
+            </div>
+            <h4 class="card-title fw-semibold">Lihat Hasil dan Rekomendasi</h4>
+            <p class="card-text text-muted">
+              Hasil akan menunjukkan apakah Anda berisiko terkena penyakit jantung.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>HeartGuard</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+  <style>
+    /* Menambahkan padding top ke main agar konten tidak tertutup header */
+    main {
+      padding-top: 80px; /* Sesuaikan dengan tinggi header */
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center bg-white shadow-sm">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <h1 class="text-light"><a href="{{ url_for('index') }}"><span>HeartGuard</span></a></h1>
+      </div>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="{{ url_for('index') }}#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('grafik') }}">Grafik Prediksi</a></li>
+          {% if session.get('loggedin') %}
+            <li><a class="nav-link scrollto" href="{{ url_for('about') }}">About</a></li>
+            <li><a class="getstarted scrollto" href="{{ url_for('form')}}"> Prediksi Sekarang!</a></li>
+            <li><a class="nav-link scrollto" href="{{ url_for('profil') }}">👤 {{ session['username'] }}</a></li>
+            {% else %}
+            <li><a class="nav-link scrollto" href="{{ url_for('login') }}">Login</a></li>
+            <li><a class="getstarted scrollto" href="{{ url_for('login') }}" onclick="alert('Silakan login terlebih dahulu')"> Prediksi Sekarang!</a></li>
+          {% endif %}
+          
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Main ======= -->
+  <main id="main" class="flex-fill">
+    {% block content %}{% endblock %}
+  </main>
+  <!-- End Main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="bg-light text-center text-muted small py-3 border-top">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div>
+        <span>&copy; 2025 Sistem Prediksi Penyakit Jantung</span>
+        </div>
+        <div>
+        <a href="https://bootstrapmade.com/" class="text-muted text-decoration-none">Politeknik Harapan Bersama Tegal</a>
+        </div>
+    </div>
+    </footer>
+    <!-- End Footer -->
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
